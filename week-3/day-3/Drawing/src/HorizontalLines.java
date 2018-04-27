@@ -20,14 +20,13 @@ public class HorizontalLines {
     }
 
     private static void horizont(int x, int y, Graphics graphics) {
-            graphics.drawLine(x,y,x+50,y);
-        }
+        graphics.drawLine(x, y, x + 50, y);
+    }
 
 
-    private static int randomWithRange(int min, int max)
-    {
+    private static int randomWithRange(int min, int max) {
         int range = (max - min) + 1;
-        return (int)(Math.random() * range) + min;
+        return (int) (Math.random() * range) + min;
     }
 
     // Don't touch the code below

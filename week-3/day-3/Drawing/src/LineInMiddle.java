@@ -5,17 +5,16 @@ import java.awt.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class LineInMiddle {
-    public static void mainDraw(Graphics graphics){
+    public static void mainDraw(Graphics graphics) {
         // draw a red horizontal line to the canvas' middle.
         // draw a green vertical line to the canvas' middle.
-        int halfWidth=WIDTH/2;
-        int halfHeight=HEIGHT/2;
+        int halfWidth = WIDTH / 2;
+        int halfHeight = HEIGHT / 2;
         graphics.setColor(Color.RED);
         graphics.drawLine(halfWidth, 0, halfWidth, HEIGHT);
         graphics.setColor(Color.GREEN);
-        graphics.drawLine(0,halfHeight,WIDTH,halfHeight);
+        graphics.drawLine(0, halfHeight, WIDTH, halfHeight);
     }
-
 
 
     // Don't touch the code below

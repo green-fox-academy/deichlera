@@ -15,6 +15,7 @@ public class Printer {
         //String[] inputs={"a","b","c","d","e"};
         printer("first", "second", "third", "fourh");
     }
+
     private static void printer(String... params) {
         for (String par : params) {
             System.out.println(par);

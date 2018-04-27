@@ -12,14 +12,14 @@ public class GoToCenter {
         // Draw 3 lines with that function. Use loop for that.
         int x = 30;
         int y = 20;
-        toCenter(x,y,graphics);
+        toCenter(x, y, graphics);
 
     }
 
     private static void toCenter(int x, int y, Graphics graphics) {
-        int centerx = WIDTH/2;
-        int centery = HEIGHT/2;
-        graphics.drawLine(x,y,centerx,centery);
+        int centerx = WIDTH / 2;
+        int centery = HEIGHT / 2;
+        graphics.drawLine(x, y, centerx, centery);
     }
 
 

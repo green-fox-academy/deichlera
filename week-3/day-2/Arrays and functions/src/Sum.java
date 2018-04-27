@@ -7,14 +7,14 @@ public class Sum {
 
 // - Write a function called `sum` that sum all the numbers
 //   until the given parameter and returns with an integer
-        int par=7;
+        int par = 7;
         System.out.println(sum(par));
     }
 
     private static int sum(int temp) {
-        int summ=0;
+        int summ = 0;
         for (int i = 1; i <= temp; i++) {
-            summ+=i;
+            summ += i;
         }
         return summ;
     }
