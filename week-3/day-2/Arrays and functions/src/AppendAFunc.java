@@ -8,13 +8,13 @@ public class AppendAFunc {
 //   appends an 'a' character to its end and returns with a string
 //
 // - Print the result of `appendAFunc(am)`
-        String am="kuty";
+        String am = "kuty";
         appendA(am);
         System.out.println(appendA(am));
     }
 
     private static String appendA(String input) {
-        input=input.concat("a");
+        input = input.concat("a");
         return input;
     }
 }

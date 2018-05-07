@@ -8,10 +8,6 @@ public class Reverse {
 // - Print the elements of the reversed `aj`
         int[] aj = {3, 4, 5, 6, 7};
         reverseArray(aj);
-        /*for (int i = 0; i < aj.length; i++) {
-            System.out.printf("%d ", aj);
-        }
-        System.out.println();*/
         System.out.println(Arrays.toString(aj));
     }
 

@@ -8,7 +8,7 @@ public class SumAll {
     }
 
     private static void sumAll(int[] ai) {
-        int sum=0;
+        int sum = 0;
         for (int i = 0; i < ai.length; i++) {
             sum += ai[i];
         }
