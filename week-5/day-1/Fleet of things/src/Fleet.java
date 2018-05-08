@@ -1,15 +1,14 @@
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Fleet {
-    private ArrayList<List> things;
+    private ArrayList<Thing> things;
 
     public Fleet() {
         things = new ArrayList<>();
     }
 
-    public void add(ArrayList thing) {
+    public void add(Thing thing) {
         things.add(thing);
     }
 
