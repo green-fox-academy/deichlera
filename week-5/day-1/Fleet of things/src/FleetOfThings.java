@@ -7,10 +7,10 @@ public class FleetOfThings {
         // 2. [ ] Remove the obstacles
         // 3. [x] Stand up
         // 4. [x] Eat lunch
-        Thing thing1=new Thing("Get milk");
-        Thing thing2=new Thing("Remove the obstacles");
-        Thing thing3=new Thing("Stand up");
-        Thing thing4=new Thing("Eat lunch");
+        Thing thing1 = new Thing("Get milk");
+        Thing thing2 = new Thing("Remove the obstacles");
+        Thing thing3 = new Thing("Stand up");
+        Thing thing4 = new Thing("Eat lunch");
 
         fleet.add(thing1);
         fleet.add(thing2);
