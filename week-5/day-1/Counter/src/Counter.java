@@ -29,4 +29,10 @@ public class Counter {
         return "The counter is " + counter + ".";
     }
 
+    /*@Override
+    public String toString() {
+        return "Counter{" +
+                "counter=" + counter +
+                '}';
+    }*/
 }
