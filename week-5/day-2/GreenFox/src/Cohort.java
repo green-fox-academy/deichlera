@@ -10,8 +10,8 @@ public class Cohort {
 
     public Cohort(String name) {
         this.name = name;
-        this.mentors= new ArrayList<>() ;
-        this.students= new ArrayList<>();
+        this.mentors = new ArrayList<>();
+        this.students = new ArrayList<>();
     }
 
     public void addStudent(Student student) {
@@ -22,7 +22,7 @@ public class Cohort {
         mentors.add(mentor);
     }
 
-    public void info(){
+    public void info() {
         System.out.println("The " + this.name + " cohort has " + students.size() + " students and " + mentors.size() + " mentors.");
     }
 
