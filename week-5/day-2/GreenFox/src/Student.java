@@ -14,12 +14,13 @@ public class Student extends Person {
         this.skippedDays = 0;
     }
 
-    public String getGoal() {
-        return "Be a junior software developer.";
+    public void getGoal() {
+        System.out.println("Be a junior software developer.");
     }
 
-    public String introduce() {
-        return "Hi, I'm " + name + ", a " + age + " year old " + gender + " from " + previousOrganization + "who skipped " + skippedDays + "days from the course already.";
+    @Override
+    public void introduce(String name, int age, String gender) {
+        System.out.println("Hi, I'm " + name + ", a " + age + " year old " + gender + " from " + previousOrganization + " who skipped " + skippedDays + " days from the course already.");
     }
 
     public void skipDays(int numberOfDays) {

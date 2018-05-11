@@ -16,12 +16,12 @@ public class Person {
     }
 
 
-    public String introduce(String name, int age, String gender) {
-        return "Hi, I'm " + name + " , a " + age + " year old " + gender + ".";
+    public void introduce(String name, int age, String gender) {
+        System.out.println("Hi, I'm " + name + ", a " + age + " year old " + gender + ".");
     }
 
-    public String getGoal() {
-        return "My goal is: Live for the moment!";
+    public void getGoal() {
+        System.out.println("My goal is: Live for the moment!");
     }
 
 }

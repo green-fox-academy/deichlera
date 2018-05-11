@@ -11,11 +11,13 @@ public class Mentor extends Person {
         this("Jane Doe", 30, "female", "intermediate");
     }
 
-    public String getGoal() {
-        return "Educate brilliant junior software developers.";
+    public void getGoal() {
+        System.out.println("Educate brilliant junior software developers.");
     }
 
-    public String introduce() {
-        return "Hi, I'm " + name + " , a " + age + " year old " + gender + level + "mentor.";
+    @Override
+    public void introduce(String name, int age, String gender) {
+        System.out.println("Hi, I'm " + name + " , a " + age + " year old " + gender + " " + level + " mentor.");
     }
+
 }
