@@ -21,6 +21,8 @@ public class Board extends JComponent implements KeyListener {
         setVisible(true);
     }
 
+    Character heroDown = new Character();
+
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
@@ -43,6 +45,7 @@ public class Board extends JComponent implements KeyListener {
             }
             y += height / 10;
         }
+        heroDown.paintHero(graphics);
     }
 
     private int randomNumber(int min, int max) {
