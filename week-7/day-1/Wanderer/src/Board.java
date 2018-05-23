@@ -15,6 +15,8 @@ public class Board extends JComponent implements KeyListener {
     int testBoxY;
     int width = 720;
     int height = 720;
+    int xFieldLength = width/10;
+    int yFieldLength = height/10;
     int[][] map2 = ddrawMapFroMe();
 
 
@@ -80,8 +82,6 @@ public class Board extends JComponent implements KeyListener {
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
-        int indexX = 0;
-        int indexY = 0;
         int x = 0;
         for (int i = 0; i < map2.length; i++) {
             int y = 0;
@@ -93,9 +93,9 @@ public class Board extends JComponent implements KeyListener {
                     PositionedImage image = new PositionedImage("wall.png", x, y);
                     image.draw(graphics);
                 }
-                y += width / 10;
+                y += yFieldLength;
             }
-            x += height / 10;
+            x += xFieldLength;
         }
         hero.draw(graphics);
 
@@ -117,13 +117,25 @@ public class Board extends JComponent implements KeyListener {
     public void keyReleased(KeyEvent e) {
         // When the up or down keys hit, we change the position of our box
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            hero.posY -= (width/10);
-        } else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-            hero.posY += (width/10);
-        } else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
-            hero.posX -= (width/10);
-        } else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            hero.posX += (width/10);
+            if ((hero.posY - xFieldLength) < 0) {
+            } else {
+                hero.posY -= xFieldLength;
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            if ((hero.posY + xFieldLength) >= height) {
+            } else {
+                hero.posY += xFieldLength;
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            if ((hero.posX - yFieldLength) < 0) {
+            } else {
+                hero.posX -= yFieldLength;
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            if ((hero.posX - yFieldLength) >= (width-2*(xFieldLength))) {
+            } else {
+                hero.posX += yFieldLength;
+            }
         }
         // and redraw to have a new picture with the new coordinates
         repaint();
