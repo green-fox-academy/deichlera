@@ -117,9 +117,13 @@ public class Board extends JComponent implements KeyListener {
     public void keyReleased(KeyEvent e) {
         // When the up or down keys hit, we change the position of our box
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            testBoxY -= 100;
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            testBoxY += 100;
+            hero.posY -= 10;
+        } else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+            hero.posY += 10;
+        } else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+            hero.posX -= 10;
+        } else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            hero.posX += 10;
         }
         // and redraw to have a new picture with the new coordinates
         repaint();
