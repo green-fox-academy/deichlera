@@ -9,7 +9,7 @@ public class Hero extends Character {
         super(filename, posX, posY);
     }
 
-    public void changePicture(Hero hero2) {
+    public void passOverPosition(Hero hero2) {
         hero2.posX = this.posX;
         hero2.posY = this.posY;
 

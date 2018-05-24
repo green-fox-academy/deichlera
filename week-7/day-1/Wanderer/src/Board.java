@@ -19,22 +19,18 @@ public class Board extends JComponent implements KeyListener {
     int height = 720;
     int xFieldLength = width / 10;
     int yFieldLength = height / 10;
-    int[][] map2 = ddrawMapForMe();
+    int[][] map2 = drawMapForMe();
     int posX = 0;
     int posY = 0;
-    //String filename ="hero-down.png";
 
-    //PositionedImage hero = new PositionedImage(filename, posX, posY);
+
+
     Hero hero = new Hero("hero-down.png", posX, posY);
     Hero heroUp = new Hero("hero-up.png", posX, posY);
     Hero heroLeft = new Hero("hero-left.png", posX, posY);
     Hero heroRight = new Hero("hero-right.png", posX, posY);
     Hero heroDown = new Hero("hero-down.png", posX, posY);
-
-    //PositionedImage heroDown = new PositionedImage("hero-down.png", posX, posY);
-    //PositionedImage heroUp = new PositionedImage("hero-up.png", posX, posY);
-    //PositionedImage heroRight = new PositionedImage("hero-right.png", posX, posY);
-    //PositionedImage heroLeft = new PositionedImage("hero-left.png", posX, posY);
+    
 
     public Board() {
 
@@ -47,7 +43,7 @@ public class Board extends JComponent implements KeyListener {
     }
 
 
-    public int[][] ddrawMapForMe() {
+    public int[][] drawMapForMe() {
         int[][] coord2 = new int[10][10];
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -131,32 +127,30 @@ public class Board extends JComponent implements KeyListener {
     public void keyReleased(KeyEvent e) {
         // When the up or down keys hit, we change the position of our box
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            heroUp.posX = hero.posX;
-            heroUp.posY = hero.posY;
+            //heroUp.posX = hero.posX;
+            //heroUp.posY = hero.posY;
+            hero.passOverPosition(heroUp);
             hero = heroUp;
             if ((hero.posY - xFieldLength) < 0) {
             } else {
                 hero.posY -= xFieldLength;
             }
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            heroDown.posX = hero.posX;
-            heroDown.posY = hero.posY;
+            hero.passOverPosition(heroDown);
             hero = heroDown;
             if ((hero.posY + xFieldLength) >= height) {
             } else {
                 hero.posY += xFieldLength;
             }
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            heroLeft.posX = hero.posX;
-            heroLeft.posY = hero.posY;
+            hero.passOverPosition(heroLeft);
             hero = heroLeft;
             if ((hero.posX - yFieldLength) < 0) {
             } else {
                 hero.posX -= yFieldLength;
             }
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            heroRight.posX = hero.posX;
-            heroRight.posY = hero.posY;
+            hero.passOverPosition(heroRight);
             hero = heroRight;
             if ((hero.posX - yFieldLength) >= (width - 2 * (xFieldLength))) {
             } else {
