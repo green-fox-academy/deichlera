@@ -1,7 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,13 +17,24 @@ public class Board extends JComponent implements KeyListener {
     int testBoxY;
     int width = 720;
     int height = 720;
-    int xFieldLength = width/10;
-    int yFieldLength = height/10;
-    int[][] map2 = ddrawMapFroMe();
+    int xFieldLength = width / 10;
+    int yFieldLength = height / 10;
+    int[][] map2 = ddrawMapForMe();
+    int posX = 0;
+    int posY = 0;
+    //String filename ="hero-down.png";
 
+    //PositionedImage hero = new PositionedImage(filename, posX, posY);
+    Hero hero = new Hero("hero-down.png", posX, posY);
+    Hero heroUp = new Hero("hero-up.png", posX, posY);
+    Hero heroLeft = new Hero("hero-left.png", posX, posY);
+    Hero heroRight = new Hero("hero-right.png", posX, posY);
+    Hero heroDown = new Hero("hero-down.png", posX, posY);
 
-    PositionedImage hero = new PositionedImage("hero-down.png", 0, 0);
-
+    //PositionedImage heroDown = new PositionedImage("hero-down.png", posX, posY);
+    //PositionedImage heroUp = new PositionedImage("hero-up.png", posX, posY);
+    //PositionedImage heroRight = new PositionedImage("hero-right.png", posX, posY);
+    //PositionedImage heroLeft = new PositionedImage("hero-left.png", posX, posY);
 
     public Board() {
 
@@ -34,14 +47,14 @@ public class Board extends JComponent implements KeyListener {
     }
 
 
-    public int[][] ddrawMapFroMe() {
+    public int[][] ddrawMapForMe() {
         int[][] coord2 = new int[10][10];
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 int n = randomNumber(0, 10);
                 if (i == 0 || i == j || i == (j + 1) || i == 9) {
                     coord2[i][j] = 1;
-                } else if (n < 7) {
+                } else if (n < 6) {
                     coord2[i][j] = 1;
                 } else {
                     coord2[i][j] = 0;
@@ -97,6 +110,7 @@ public class Board extends JComponent implements KeyListener {
             }
             x += xFieldLength;
         }
+        hero.filename = "hero-up.png";
         hero.draw(graphics);
 
     }
@@ -117,22 +131,34 @@ public class Board extends JComponent implements KeyListener {
     public void keyReleased(KeyEvent e) {
         // When the up or down keys hit, we change the position of our box
         if (e.getKeyCode() == KeyEvent.VK_UP) {
+            heroUp.posX = hero.posX;
+            heroUp.posY = hero.posY;
+            hero = heroUp;
             if ((hero.posY - xFieldLength) < 0) {
             } else {
                 hero.posY -= xFieldLength;
             }
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            heroDown.posX = hero.posX;
+            heroDown.posY = hero.posY;
+            hero = heroDown;
             if ((hero.posY + xFieldLength) >= height) {
             } else {
                 hero.posY += xFieldLength;
             }
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            heroLeft.posX = hero.posX;
+            heroLeft.posY = hero.posY;
+            hero = heroLeft;
             if ((hero.posX - yFieldLength) < 0) {
             } else {
                 hero.posX -= yFieldLength;
             }
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            if ((hero.posX - yFieldLength) >= (width-2*(xFieldLength))) {
+            heroRight.posX = hero.posX;
+            heroRight.posY = hero.posY;
+            hero = heroRight;
+            if ((hero.posX - yFieldLength) >= (width - 2 * (xFieldLength))) {
             } else {
                 hero.posX += yFieldLength;
             }
@@ -140,4 +166,11 @@ public class Board extends JComponent implements KeyListener {
         // and redraw to have a new picture with the new coordinates
         repaint();
     }
+
+
+
 }
+
+
+
+
