@@ -19,7 +19,7 @@ public class Board extends JComponent implements KeyListener {
     int height = 720;
     int xFieldLength = width / 10;
     int yFieldLength = height / 10;
-    int[][] map2 = drawMapForMe();
+    int[][] map2 = drawMap();
     int posX = 0;
     int posY = 0;
 
@@ -40,7 +40,7 @@ public class Board extends JComponent implements KeyListener {
     }
 
 
-    public int[][] drawMapForMe() {
+    public int[][] drawMap() {
         int[][] coord2 = new int[13][13];
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
