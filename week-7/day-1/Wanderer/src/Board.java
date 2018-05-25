@@ -24,19 +24,16 @@ public class Board extends JComponent implements KeyListener {
     int posY = 0;
 
 
-
     Hero hero = new Hero("hero-down.png", posX, posY);
     Hero heroUp = new Hero("hero-up.png", posX, posY);
     Hero heroLeft = new Hero("hero-left.png", posX, posY);
     Hero heroRight = new Hero("hero-right.png", posX, posY);
     Hero heroDown = new Hero("hero-down.png", posX, posY);
-    
+
 
     public Board() {
-
         testBoxX = 0;
         testBoxY = 0;
-
         // set the size of your draw board
         setPreferredSize(new Dimension(width, height));
         setVisible(true);
@@ -44,7 +41,7 @@ public class Board extends JComponent implements KeyListener {
 
 
     public int[][] drawMapForMe() {
-        int[][] coord2 = new int[10][10];
+        int[][] coord2 = new int[13][13];
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 int n = randomNumber(0, 10);
@@ -67,26 +64,6 @@ public class Board extends JComponent implements KeyListener {
         return number;
     }
 
-    public static void main(String[] args) {
-
-        // Here is how you set up a new window and adding our board to it
-        JFrame frame = new JFrame("RPG Game");
-        Board board = new Board();
-        frame.add(board);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        frame.pack();
-
-
-        // Here is how you can add a key event listener
-        // The board object will be notified when hitting any key
-        // with the system calling one of the below 3 methods
-        frame.addKeyListener(board);
-        // Notice (at the top) that we can only do this
-        // because this Board class (the type of the board object) is also a KeyListener
-
-
-    }
 
     @Override
     public void paint(Graphics graphics) {
@@ -106,7 +83,6 @@ public class Board extends JComponent implements KeyListener {
             }
             x += xFieldLength;
         }
-        hero.filename = "hero-up.png";
         hero.draw(graphics);
 
     }
@@ -127,32 +103,38 @@ public class Board extends JComponent implements KeyListener {
     public void keyReleased(KeyEvent e) {
         // When the up or down keys hit, we change the position of our box
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            //heroUp.posX = hero.posX;
-            //heroUp.posY = hero.posY;
-            hero.passOverPosition(heroUp);
+            hero.passOverCurrentPosition(heroUp);
             hero = heroUp;
-            if ((hero.posY - xFieldLength) < 0) {
+            int nextField = hero.nextFieldIs(map2, 0, yFieldLength, xFieldLength);
+            if (nextField == 0) {
+            } else if ((hero.posY - xFieldLength) < 0) {
             } else {
                 hero.posY -= xFieldLength;
             }
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            hero.passOverPosition(heroDown);
+            hero.passOverCurrentPosition(heroDown);
             hero = heroDown;
-            if ((hero.posY + xFieldLength) >= height) {
+            int nextField = hero.nextFieldIs(map2, height, yFieldLength, xFieldLength);
+            if (nextField == 0) {
+            } else if ((hero.posY + xFieldLength) >= height) {
             } else {
                 hero.posY += xFieldLength;
             }
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            hero.passOverPosition(heroLeft);
+            hero.passOverCurrentPosition(heroLeft);
             hero = heroLeft;
-            if ((hero.posX - yFieldLength) < 0) {
+            int nextField = hero.nextFieldIs(map2,0, yFieldLength, xFieldLength);
+            if (nextField == 0) {
+            } else if ((hero.posX - yFieldLength) < 0) {
             } else {
                 hero.posX -= yFieldLength;
             }
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            hero.passOverPosition(heroRight);
+            hero.passOverCurrentPosition(heroRight);
             hero = heroRight;
-            if ((hero.posX - yFieldLength) >= (width - 2 * (xFieldLength))) {
+            int nextField = hero.nextFieldIs(map2,  width, yFieldLength, xFieldLength);
+            if (nextField == 0) {
+            } else if ((hero.posX + yFieldLength) >= width) {
             } else {
                 hero.posX += yFieldLength;
             }
@@ -164,6 +146,9 @@ public class Board extends JComponent implements KeyListener {
 
 
 }
+
+
+
 
 
 
