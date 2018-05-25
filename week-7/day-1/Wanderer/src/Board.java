@@ -30,6 +30,8 @@ public class Board extends JComponent implements KeyListener {
     Hero heroRight = new Hero("hero-right.png", posX, posY);
     Hero heroDown = new Hero("hero-down.png", posX, posY);
 
+    Skeleton skeleton=new Skeleton("skeleton.png", posX,posY);
+
 
     public Board() {
         testBoxX = 0;
@@ -84,7 +86,8 @@ public class Board extends JComponent implements KeyListener {
             x += xFieldLength;
         }
         hero.draw(graphics);
-
+        skeleton.newSkeleton(hero, xFieldLength);
+        skeleton.draw(graphics);
     }
 
     // To be a KeyListener the class needs to have these 3 methods in it
