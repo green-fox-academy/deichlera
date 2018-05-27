@@ -22,6 +22,7 @@ public class Board extends JComponent implements KeyListener {
     ArrayList<Integer> map2 = drawMap();
     int posX = 0;
     int posY = 0;
+    int count = 0;
 
 
     Hero hero = new Hero("hero-down.png", posX, posY);
@@ -30,7 +31,7 @@ public class Board extends JComponent implements KeyListener {
     Hero heroRight = new Hero("hero-right.png", posX, posY);
     Hero heroDown = new Hero("hero-down.png", posX, posY);
 
-    Skeleton skeleton = new Skeleton("skeleton.png", posX, posY);
+    Skeleton skeleton = new Skeleton("skeleton.png", posX, posY, hero, map2);
 
 
     public Board() {
@@ -70,7 +71,6 @@ public class Board extends JComponent implements KeyListener {
         super.paint(graphics);
         paintMap(graphics);
         hero.draw(graphics);
-        skeleton.newSkeleton(hero, map2, height, width, 0,0);
         skeleton.draw(graphics);
     }
 
@@ -102,53 +102,48 @@ public class Board extends JComponent implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyCode());
+        //System.out.println(e.getKeyCode());
     }
 
     // But actually we can use just this one for our goals here
     @Override
     public void keyReleased(KeyEvent e) {
         // When the up or down keys hit, we change the position of our box
-        // When the up or down keys hit, we change the position of our box
         if (e.getKeyCode() == KeyEvent.VK_UP) {
             hero.passOverCurrentPosition(heroUp);
             hero = heroUp;
-            int nextField = hero.nextFieldIs(map2, 0, yFieldLength, xFieldLength);
-            System.out.println(nextField);
-            if (nextField == 0) {
-            } else if ((hero.posY - xFieldLength) < 0) {
-            } else {
-                hero.posY -= xFieldLength;
+            int nextField = hero.nextFieldIs("up", map2, 0, yFieldLength, xFieldLength);
+            hero.move("up", nextField, xFieldLength);
+            count++;
+            if ((count % 2) == 0) {
+                skeleton.move(skeleton, map2, height, width, xFieldLength);
             }
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             hero.passOverCurrentPosition(heroDown);
             hero = heroDown;
-            int nextField = hero.nextFieldIs(map2, height, yFieldLength, xFieldLength);
-            System.out.println(nextField);
-            if (nextField == 0) {
-            } else if ((hero.posY + xFieldLength) >= height) {
-            } else {
-                hero.posY += xFieldLength;
+            int nextField = hero.nextFieldIs("down", map2, height, width, xFieldLength);
+            hero.move("down", nextField, xFieldLength);
+            count++;
+            if ((count % 2) == 0) {
+                skeleton.move(skeleton, map2, height, width, xFieldLength);
             }
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             hero.passOverCurrentPosition(heroLeft);
             hero = heroLeft;
-            int nextField = hero.nextFieldIs(map2, 0, yFieldLength, xFieldLength);
-            System.out.println(nextField);
-            if (nextField == 0) {
-            } else if ((hero.posX - yFieldLength) < 0) {
-            } else {
-                hero.posX -= yFieldLength;
+            int nextField = hero.nextFieldIs("left", map2, height, width, yFieldLength);
+            hero.move("left", nextField, xFieldLength);
+            count++;
+            if ((count % 2) == 0) {
+                skeleton.move(skeleton, map2, height, width, xFieldLength);
             }
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             hero.passOverCurrentPosition(heroRight);
             hero = heroRight;
-            int nextField = hero.nextFieldIs(map2, width, yFieldLength, xFieldLength);
-            System.out.println(nextField);
-            if (nextField == 0) {
-            } else if ((hero.posX + yFieldLength) >= width) {
-            } else {
-                hero.posX += yFieldLength;
+            int nextField = hero.nextFieldIs("right", map2, height, width, xFieldLength);
+            hero.move("right", nextField, xFieldLength);
+            count++;
+            if ((count % 2) == 0) {
+                skeleton.move(skeleton, map2, height, width, xFieldLength);
             }
         }
         // and redraw to have a new picture with the new coordinates
