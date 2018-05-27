@@ -11,24 +11,27 @@ public class Character extends PositionedImage {
     }
 
 
-    public int convertFieldCoordinateXToArrayElement(int field) {
-        int xCoord = this.posX / field;
-        posX = xCoord;
-        return posX;
+    public int convertFieldCoordinateToArrayCoordinate(int xCoord, int yCoord, int givenField, int height, int width) {
+        if (givenField == 0) {
+            xCoord /= width;
+            yCoord /= height;
+        }
+        int coord = (10 * yCoord) + xCoord;
+        return coord;
     }
 
-    public int convertFieldCoordinateYToArrayElement(int field) {
-        int yCoord = this.posY / field;
-        posY = yCoord;
-        return posY;
-    }
+    /*public int convertArrayCoordinateToFieldCoordinates(int coord, int xCoord, int yCoord) {
+        xCoord = (coord/10)*72;
+        yCoord = (coord % 10)*72;
+    }*/
 
-    public void convertArrayElementToXFieldCoordinates(int firstElement, int field) {
-        this.posX = firstElement * field;
+    public int convertArrayCoordinateToFieldCoordinatesX(int coord, int xCoord) {
+        xCoord = (coord/10)*72;
+        return xCoord;
     }
-
-    public void convertArrayElementToYFieldCoordinates(int secondElement, int field) {
-        this.posY = secondElement * field;
+    public int convertArrayCoordinateToFieldCoordinatesY(int coord, int yCoord) {
+        yCoord = (coord % 10)*72;
+        return yCoord;
     }
 
 }

@@ -19,7 +19,7 @@ public class Board extends JComponent implements KeyListener {
     int height = 720;
     int xFieldLength = width / 10;
     int yFieldLength = height / 10;
-    int[][] map2 = drawMap();
+    ArrayList<Integer> map2 = drawMap();
     int posX = 0;
     int posY = 0;
 
@@ -30,7 +30,7 @@ public class Board extends JComponent implements KeyListener {
     Hero heroRight = new Hero("hero-right.png", posX, posY);
     Hero heroDown = new Hero("hero-down.png", posX, posY);
 
-    Skeleton skeleton=new Skeleton("skeleton.png", posX,posY);
+    Skeleton skeleton = new Skeleton("skeleton.png", posX, posY);
 
 
     public Board() {
@@ -42,18 +42,16 @@ public class Board extends JComponent implements KeyListener {
     }
 
 
-    public int[][] drawMap() {
-        int[][] coord2 = new int[13][13];
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                int n = randomNumber(0, 10);
-                if (i == 0 || i == j || i == (j + 1) || i == 9) {
-                    coord2[i][j] = 1;
-                } else if (n < 6) {
-                    coord2[i][j] = 1;
-                } else {
-                    coord2[i][j] = 0;
-                }
+    public ArrayList<Integer> drawMap() {
+        ArrayList<Integer> coord2 = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            int n = randomNumber(0, 10);
+            if (i % 10 == 0 || i % 10 == 9 || i % 11 == 0 || i % 11 == 1) {
+                coord2.add(1);
+            } else if (n < 6) {
+                coord2.add(1);
+            } else {
+                coord2.add(0);
             }
         }
         return coord2;
@@ -70,24 +68,30 @@ public class Board extends JComponent implements KeyListener {
     @Override
     public void paint(Graphics graphics) {
         super.paint(graphics);
-        int x = 0;
-        for (int i = 0; i < map2.length; i++) {
-            int y = 0;
-            for (int j = 0; j < map2.length; j++) {
-                if (map2[i][j] == 1) {
-                    PositionedImage image = new PositionedImage("floor.png", x, y);
-                    image.draw(graphics);
-                } else {
-                    PositionedImage image = new PositionedImage("wall.png", x, y);
-                    image.draw(graphics);
-                }
-                y += yFieldLength;
-            }
-            x += xFieldLength;
-        }
+        paintMap(graphics);
         hero.draw(graphics);
-        skeleton.newSkeleton(hero, xFieldLength);
+        skeleton.newSkeleton(hero, map2, height, width, 0,0);
         skeleton.draw(graphics);
+    }
+
+    private void paintMap(Graphics graphics) {
+        int x = 0;
+        int y = 0;
+        for (int i = 0; i < map2.size(); i++) {
+            if (map2.get(i) == 1) {
+                PositionedImage image = new PositionedImage("floor.png", x, y);
+                image.draw(graphics);
+                x += xFieldLength;
+            } else if (map2.get(i) == 0) {
+                PositionedImage image = new PositionedImage("wall.png", x, y);
+                image.draw(graphics);
+                x += xFieldLength;
+            }
+            if (i % 10 == 9) {
+                y += yFieldLength;
+                x = 0;
+            }
+        }
     }
 
     // To be a KeyListener the class needs to have these 3 methods in it
@@ -105,10 +109,12 @@ public class Board extends JComponent implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         // When the up or down keys hit, we change the position of our box
+        // When the up or down keys hit, we change the position of our box
         if (e.getKeyCode() == KeyEvent.VK_UP) {
             hero.passOverCurrentPosition(heroUp);
             hero = heroUp;
             int nextField = hero.nextFieldIs(map2, 0, yFieldLength, xFieldLength);
+            System.out.println(nextField);
             if (nextField == 0) {
             } else if ((hero.posY - xFieldLength) < 0) {
             } else {
@@ -118,6 +124,7 @@ public class Board extends JComponent implements KeyListener {
             hero.passOverCurrentPosition(heroDown);
             hero = heroDown;
             int nextField = hero.nextFieldIs(map2, height, yFieldLength, xFieldLength);
+            System.out.println(nextField);
             if (nextField == 0) {
             } else if ((hero.posY + xFieldLength) >= height) {
             } else {
@@ -126,7 +133,8 @@ public class Board extends JComponent implements KeyListener {
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             hero.passOverCurrentPosition(heroLeft);
             hero = heroLeft;
-            int nextField = hero.nextFieldIs(map2,0, yFieldLength, xFieldLength);
+            int nextField = hero.nextFieldIs(map2, 0, yFieldLength, xFieldLength);
+            System.out.println(nextField);
             if (nextField == 0) {
             } else if ((hero.posX - yFieldLength) < 0) {
             } else {
@@ -135,7 +143,8 @@ public class Board extends JComponent implements KeyListener {
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             hero.passOverCurrentPosition(heroRight);
             hero = heroRight;
-            int nextField = hero.nextFieldIs(map2,  width, yFieldLength, xFieldLength);
+            int nextField = hero.nextFieldIs(map2, width, yFieldLength, xFieldLength);
+            System.out.println(nextField);
             if (nextField == 0) {
             } else if ((hero.posX + yFieldLength) >= width) {
             } else {
@@ -147,9 +156,7 @@ public class Board extends JComponent implements KeyListener {
     }
 
 
-
 }
-
 
 
 

@@ -1,6 +1,7 @@
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Hero extends Character {
 
@@ -15,46 +16,48 @@ public class Hero extends Character {
 
     }
 
-    public int nextFieldIs(int[][] map2, int dontLeaveMapInt, int field, int otherfield) {
+    public int nextFieldIs(ArrayList map2, int dontLeaveMapInt, int field, int otherfield) {
         int nextFieldIs = 0;
         int first;
-        if (this.filename=="hero-up.png") {
+        if (this.filename == "hero-up.png") {
             first = this.posY - field;
             if (first < dontLeaveMapInt) {
             } else {
                 int xCoord = this.posX / otherfield;
                 int yCoord = (this.posY - field) / field;
-                nextFieldIs = map2[xCoord][yCoord];
+                int coord = convertFieldCoordinateToArrayCoordinate(xCoord, yCoord, 1, 720, 720);
+                nextFieldIs = (Integer) map2.get(coord);
             }
-        } else if (this.filename=="hero-down.png") {
-            first = this.posY - field;
-            if (first > dontLeaveMapInt) {
+        } else if (this.filename == "hero-down.png") {
+            first = this.posY + field;
+            if (first >= dontLeaveMapInt) {
             } else {
                 int xCoord = this.posX / otherfield;
                 int yCoord = (this.posY + field) / field;
-                nextFieldIs = map2[xCoord][yCoord];
+                int coord = convertFieldCoordinateToArrayCoordinate(xCoord, yCoord, 1,720, 720);
+                nextFieldIs = (Integer) map2.get(coord);
             }
-        } else if (this.filename=="hero-left.png") {
+        } else if (this.filename == "hero-left.png") {
             first = this.posX - field;
             if (first < dontLeaveMapInt) {
             } else {
                 int xCoord = (this.posX - field) / otherfield;
                 int yCoord = this.posY / field;
-                nextFieldIs = map2[xCoord][yCoord];
+                int coord = convertFieldCoordinateToArrayCoordinate(xCoord, yCoord, 1,720, 720);
+                nextFieldIs = (Integer) map2.get(coord);
             }
         } else {
-            first = this.posX - field;
-            if (first > dontLeaveMapInt) {
+            first = this.posX + field;
+            if (first >= dontLeaveMapInt) {
             } else {
                 int xCoord = (this.posX + field) / otherfield;
                 int yCoord = this.posY / field;
-                nextFieldIs = map2[xCoord][yCoord];
+                int coord = convertFieldCoordinateToArrayCoordinate(xCoord, yCoord, 1,720, 720);
+                nextFieldIs = (Integer) map2.get(coord);
             }
         }
         return nextFieldIs;
     }
-
-
 
 
 }
