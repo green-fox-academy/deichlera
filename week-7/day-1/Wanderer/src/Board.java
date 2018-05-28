@@ -1,13 +1,7 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -31,7 +25,20 @@ public class Board extends JComponent implements KeyListener {
     Hero heroRight = new Hero("hero-right.png", posX, posY);
     Hero heroDown = new Hero("hero-down.png", posX, posY);
 
-    Skeleton skeleton = new Skeleton("skeleton.png", posX, posY, hero, map2);
+    Skeleton skeleton1 = new Skeleton("skeleton.png", posX, posY, hero, map2);
+    Skeleton skeleton2 = new Skeleton("skeleton.png", posX, posY, hero, map2);
+    Skeleton skeleton3 = new Skeleton("skeleton.png", posX, posY, hero, map2);
+    ArrayList<Enemy> enemies = new ArrayList<>();
+
+    Boss boss = new Boss("boss.png", posX, posY, hero, map2);
+
+    public void getSkeletons(ArrayList enemies) {
+        enemies.add(skeleton1);
+        enemies.add(skeleton2);
+        enemies.add(skeleton3);
+        enemies.add(boss);
+    }
+
 
 
     public Board() {
@@ -71,7 +78,14 @@ public class Board extends JComponent implements KeyListener {
         super.paint(graphics);
         paintMap(graphics);
         hero.draw(graphics);
-        skeleton.draw(graphics);
+        if (count == 0) {
+            getSkeletons(enemies);
+        }
+        for (int i = 0; i < enemies.size(); i++) {
+            enemies.get(i).draw(graphics);
+        }
+
+
     }
 
     private void paintMap(Graphics graphics) {
@@ -115,8 +129,10 @@ public class Board extends JComponent implements KeyListener {
             int nextField = hero.nextFieldIs("up", map2, 0, yFieldLength, xFieldLength);
             hero.move("up", nextField, xFieldLength);
             count++;
-            if ((count % 2) == 0) {
-                skeleton.move(skeleton, map2, height, width, xFieldLength);
+            for (int i = 0; i < enemies.size(); i++) {
+                if ((count % 2) == 0) {
+                    enemies.get(i).move(enemies.get(i), map2, height, width, xFieldLength);
+                }
             }
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             hero.passOverCurrentPosition(heroDown);
@@ -124,8 +140,10 @@ public class Board extends JComponent implements KeyListener {
             int nextField = hero.nextFieldIs("down", map2, height, width, xFieldLength);
             hero.move("down", nextField, xFieldLength);
             count++;
-            if ((count % 2) == 0) {
-                skeleton.move(skeleton, map2, height, width, xFieldLength);
+            for (int i = 0; i < enemies.size(); i++) {
+                if ((count % 2) == 0) {
+                    enemies.get(i).move(enemies.get(i), map2, height, width, xFieldLength);
+                }
             }
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             hero.passOverCurrentPosition(heroLeft);
@@ -133,8 +151,10 @@ public class Board extends JComponent implements KeyListener {
             int nextField = hero.nextFieldIs("left", map2, height, width, yFieldLength);
             hero.move("left", nextField, xFieldLength);
             count++;
-            if ((count % 2) == 0) {
-                skeleton.move(skeleton, map2, height, width, xFieldLength);
+            for (int i = 0; i < enemies.size(); i++) {
+                if ((count % 2) == 0) {
+                    enemies.get(i).move(enemies.get(i), map2, height, width, xFieldLength);
+                }
             }
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             hero.passOverCurrentPosition(heroRight);
@@ -142,13 +162,23 @@ public class Board extends JComponent implements KeyListener {
             int nextField = hero.nextFieldIs("right", map2, height, width, xFieldLength);
             hero.move("right", nextField, xFieldLength);
             count++;
-            if ((count % 2) == 0) {
-                skeleton.move(skeleton, map2, height, width, xFieldLength);
+            for (int i = 0; i < enemies.size(); i++) {
+                if ((count % 2) == 0) {
+                    enemies.get(i).move(enemies.get(i), map2, height, width, xFieldLength);
+                }
             }
         }
         // and redraw to have a new picture with the new coordinates
         repaint();
     }
+
+    /*public void moveSkeletons(ArrayList enemies, int count, Skeleton skeleton, ArrayList map2, int height, int width, int xFieldLength){
+        for (int i = 0; i < enemies.size(); i++) {
+            if ((count % 2) == 0) {
+                enemies.get(i).move(enemies.get(i), map2, height, width, xFieldLength);
+            }
+        }
+    }*/
 
 
 }

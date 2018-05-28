@@ -37,11 +37,12 @@ public class Character extends PositionedImage {
     }*/
 
     public int convertArrayCoordinateToFieldCoordinatesX(int coord, int xCoord) {
-        xCoord = (coord/10)*72;
+        xCoord = (coord / 10) * 72;
         return xCoord;
     }
+
     public int convertArrayCoordinateToFieldCoordinatesY(int coord, int yCoord) {
-        yCoord = (coord % 10)*72;
+        yCoord = (coord % 10) * 72;
         return yCoord;
     }
 
@@ -63,7 +64,7 @@ public class Character extends PositionedImage {
             } else {
                 int xCoord = this.posX / field;
                 int yCoord = (this.posY + field) / field;
-                int coord = convertFieldCoordinateToArrayCoordinate(xCoord, yCoord, 1,720, 720);
+                int coord = convertFieldCoordinateToArrayCoordinate(xCoord, yCoord, 1, 720, 720);
                 nextFieldIs = (Integer) map2.get(coord);
             }
         } else if (way == "left") {
@@ -72,7 +73,7 @@ public class Character extends PositionedImage {
             } else {
                 int xCoord = (this.posX - field) / field;
                 int yCoord = this.posY / field;
-                int coord = convertFieldCoordinateToArrayCoordinate(xCoord, yCoord, 1,720, 720);
+                int coord = convertFieldCoordinateToArrayCoordinate(xCoord, yCoord, 1, 720, 720);
                 nextFieldIs = (Integer) map2.get(coord);
             }
         } else {
@@ -81,7 +82,7 @@ public class Character extends PositionedImage {
             } else {
                 int xCoord = (this.posX + field) / field;
                 int yCoord = this.posY / field;
-                int coord = convertFieldCoordinateToArrayCoordinate(xCoord, yCoord, 1,720, 720);
+                int coord = convertFieldCoordinateToArrayCoordinate(xCoord, yCoord, 1, 720, 720);
                 nextFieldIs = (Integer) map2.get(coord);
             }
         }
