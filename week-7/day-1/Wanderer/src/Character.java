@@ -6,9 +6,6 @@ import java.util.List;
 
 public class Character extends PositionedImage {
 
-    PositionedImage image = new PositionedImage(filename, 0, 0);
-
-    //List ways = new List("up", "down", "left", "right");
     List<String> ways = Arrays.asList("up", "down", "left", "right");
 
     public Character(String filename, int posX, int posY) {
@@ -18,7 +15,6 @@ public class Character extends PositionedImage {
     public void passOverCurrentPosition(Character character) {
         character.posX = this.posX;
         character.posY = this.posY;
-
     }
 
 
@@ -30,11 +26,6 @@ public class Character extends PositionedImage {
         int coord = (10 * yCoord) + xCoord;
         return coord;
     }
-
-    /*public int convertArrayCoordinateToFieldCoordinates(int coord, int xCoord, int yCoord) {
-        xCoord = (coord/10)*72;
-        yCoord = (coord % 10)*72;
-    }*/
 
     public int convertArrayCoordinateToFieldCoordinatesX(int coord, int xCoord) {
         xCoord = (coord / 10) * 72;

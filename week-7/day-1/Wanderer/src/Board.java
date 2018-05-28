@@ -40,7 +40,6 @@ public class Board extends JComponent implements KeyListener {
     }
 
 
-
     public Board() {
         testBoxX = 0;
         testBoxY = 0;
@@ -72,7 +71,7 @@ public class Board extends JComponent implements KeyListener {
         return number;
     }
 
-    public void paintEnemies(int count, Graphics graphics){
+    public void paintEnemies(int count, Graphics graphics) {
         if (count == 0) {
             getSkeletons(enemies);
         }
@@ -81,12 +80,20 @@ public class Board extends JComponent implements KeyListener {
         }
     }
 
-    public void moveEnemies(){
+    public void moveEnemies() {
         for (int i = 0; i < enemies.size(); i++) {
             if ((count % 2) == 0) {
                 enemies.get(i).move(enemies.get(i), map2, height, width, xFieldLength);
             }
         }
+    }
+
+    public void moveHero(Hero newHero, String way) {
+        hero.passOverCurrentPosition(newHero);
+        hero = newHero;
+        int nextField = hero.nextFieldIs(way, map2, height, width, xFieldLength);
+        hero.move(way, nextField, xFieldLength);
+        count++;
     }
 
     @Override
@@ -135,45 +142,20 @@ public class Board extends JComponent implements KeyListener {
     public void keyReleased(KeyEvent e) {
         // When the up or down keys hit, we change the position of our box
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            hero.passOverCurrentPosition(heroUp);
-            hero = heroUp;
-            int nextField = hero.nextFieldIs("up", map2, 0, yFieldLength, xFieldLength);
-            hero.move("up", nextField, xFieldLength);
-            count++;
+            moveHero(heroUp, "up");
             moveEnemies();
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            hero.passOverCurrentPosition(heroDown);
-            hero = heroDown;
-            int nextField = hero.nextFieldIs("down", map2, height, width, xFieldLength);
-            hero.move("down", nextField, xFieldLength);
-            count++;
+            moveHero(heroDown, "down");
             moveEnemies();
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            hero.passOverCurrentPosition(heroLeft);
-            hero = heroLeft;
-            int nextField = hero.nextFieldIs("left", map2, height, width, yFieldLength);
-            hero.move("left", nextField, xFieldLength);
-            count++;
+            moveHero(heroLeft, "left");
             moveEnemies();
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            hero.passOverCurrentPosition(heroRight);
-            hero = heroRight;
-            int nextField = hero.nextFieldIs("right", map2, height, width, xFieldLength);
-            hero.move("right", nextField, xFieldLength);
-            count++;
+            moveHero(heroRight, "right");
             moveEnemies();
         }
-        // and redraw to have a new picture with the new coordinates
         repaint();
     }
-
-    /*public void moveSkeletons(ArrayList enemies, int count, Skeleton skeleton, ArrayList map2, int height, int width, int xFieldLength){
-        for (int i = 0; i < enemies.size(); i++) {
-            if ((count % 2) == 0) {
-                enemies.get(i).move(enemies.get(i), map2, height, width, xFieldLength);
-            }
-        }
-    }*/
 
 
 }
