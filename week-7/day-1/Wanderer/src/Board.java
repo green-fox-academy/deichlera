@@ -72,18 +72,29 @@ public class Board extends JComponent implements KeyListener {
         return number;
     }
 
-
-    @Override
-    public void paint(Graphics graphics) {
-        super.paint(graphics);
-        paintMap(graphics);
-        hero.draw(graphics);
+    public void paintEnemies(int count, Graphics graphics){
         if (count == 0) {
             getSkeletons(enemies);
         }
         for (int i = 0; i < enemies.size(); i++) {
             enemies.get(i).draw(graphics);
         }
+    }
+
+    public void moveEnemies(){
+        for (int i = 0; i < enemies.size(); i++) {
+            if ((count % 2) == 0) {
+                enemies.get(i).move(enemies.get(i), map2, height, width, xFieldLength);
+            }
+        }
+    }
+
+    @Override
+    public void paint(Graphics graphics) {
+        super.paint(graphics);
+        paintMap(graphics);
+        hero.draw(graphics);
+        paintEnemies(count, graphics);
 
 
     }
@@ -129,44 +140,28 @@ public class Board extends JComponent implements KeyListener {
             int nextField = hero.nextFieldIs("up", map2, 0, yFieldLength, xFieldLength);
             hero.move("up", nextField, xFieldLength);
             count++;
-            for (int i = 0; i < enemies.size(); i++) {
-                if ((count % 2) == 0) {
-                    enemies.get(i).move(enemies.get(i), map2, height, width, xFieldLength);
-                }
-            }
+            moveEnemies();
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             hero.passOverCurrentPosition(heroDown);
             hero = heroDown;
             int nextField = hero.nextFieldIs("down", map2, height, width, xFieldLength);
             hero.move("down", nextField, xFieldLength);
             count++;
-            for (int i = 0; i < enemies.size(); i++) {
-                if ((count % 2) == 0) {
-                    enemies.get(i).move(enemies.get(i), map2, height, width, xFieldLength);
-                }
-            }
+            moveEnemies();
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             hero.passOverCurrentPosition(heroLeft);
             hero = heroLeft;
             int nextField = hero.nextFieldIs("left", map2, height, width, yFieldLength);
             hero.move("left", nextField, xFieldLength);
             count++;
-            for (int i = 0; i < enemies.size(); i++) {
-                if ((count % 2) == 0) {
-                    enemies.get(i).move(enemies.get(i), map2, height, width, xFieldLength);
-                }
-            }
+            moveEnemies();
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             hero.passOverCurrentPosition(heroRight);
             hero = heroRight;
             int nextField = hero.nextFieldIs("right", map2, height, width, xFieldLength);
             hero.move("right", nextField, xFieldLength);
             count++;
-            for (int i = 0; i < enemies.size(); i++) {
-                if ((count % 2) == 0) {
-                    enemies.get(i).move(enemies.get(i), map2, height, width, xFieldLength);
-                }
-            }
+            moveEnemies();
         }
         // and redraw to have a new picture with the new coordinates
         repaint();
