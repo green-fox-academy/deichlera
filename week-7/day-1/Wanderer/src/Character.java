@@ -106,8 +106,11 @@ public class Character extends PositionedImage {
             if (count % 2 == 0) {
                 int calculatedStrikePoint = 2 * randomNumber(1, 6) + hero.strikePoint;
                 enemy.currentHealthPoint -= calculatedStrikePoint;
-                System.out.println("hit");
+                System.out.println("firsthit");
                 count++;
+                if (hero.currentHealthPoint>0 && enemy.currentHealthPoint>0) {
+                    strike(e, hero, enemy);
+                }
             } else if (count % 2 == 1) {
                 int calculatedStrikePoint = 2 * randomNumber(1, 6) + enemy.strikePoint;
                 hero.currentHealthPoint -= calculatedStrikePoint;
