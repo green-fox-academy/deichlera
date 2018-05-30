@@ -101,31 +101,9 @@ public class Board extends JComponent implements KeyListener {
         hero = newHero;
         int nextField = hero.nextFieldIs(way, map2, height, width, xFieldLength);
         hero.move(way, nextField, xFieldLength);
-        for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).posX == hero.posX && enemies.get(i).posY == hero.posY) {
-                strike(e, hero, enemies.get(i));
-            }
-        }
+
         count++;
     }
-
-    public void strike(KeyEvent e, Character hero, Character enemy) {
-        int count = 0;
-        if (count % 2 == 0) {
-            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                int calculatedStrikePoint = 2 * randomNumber(1, 6) + hero.strikePoint;
-                enemy.currentHealthPoint -= calculatedStrikePoint;
-                count++;
-            }
-        } else if (count % 2 == 1) {
-            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                int calculatedStrikePoint = 2 * randomNumber(1, 6) + enemy.strikePoint;
-                hero.currentHealthPoint -= calculatedStrikePoint;
-                count++;
-            }
-        }
-    }
-
 
 
     @Override
@@ -166,8 +144,13 @@ public class Board extends JComponent implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        //System.out.println(e.getKeyCode());
+        for (int i = 0; i < enemies.size(); i++) {
+            if (enemies.get(i).posX == hero.posX && enemies.get(i).posY == hero.posY) {
+                hero.strike(e, hero, enemies.get(i));
+            }
+        }
     }
+
 
     // But actually we can use just this one for our goals here
     @Override
