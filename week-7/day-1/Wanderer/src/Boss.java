@@ -6,6 +6,7 @@ public class Boss extends Enemy {
     public Boss(String filename, int posX, int posY, Hero hero, ArrayList map, int maxHealthPoint, int currentHealthPoint, int defendPoint, int strikePoint) {
         super(filename, posX, posY, maxHealthPoint, currentHealthPoint, defendPoint, strikePoint);
         findCoordinates(hero, map);
+        setUpPoints();
     }
 
     public void setUpPoints() {

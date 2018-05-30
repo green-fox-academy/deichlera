@@ -47,11 +47,16 @@ public class Board extends JComponent implements KeyListener {
         return "Hero (Level " + hero.level + ") HP: " + hero.maxHealthPoint + "/" + hero.currentHealthPoint + " | " + "DP: " + hero.defendPoint + " | SP :" + hero.strikePoint;
     }
 
+    public String writeOutStatsForCharacter(Enemy enemy) {
+        return "Characters HP: " + enemy.maxHealthPoint + "/" + enemy.currentHealthPoint + " | " + "DP: " + enemy.defendPoint + " | SP :" + enemy.strikePoint;
+    }
+
+
     public Board() {
         testBoxX = 0;
         testBoxY = 0;
         // set the size of your draw board
-        setPreferredSize(new Dimension(width, height + 30));
+        setPreferredSize(new Dimension(width, height + 60));
         setVisible(true);
     }
 
@@ -101,7 +106,7 @@ public class Board extends JComponent implements KeyListener {
         hero = newHero;
         int nextField = hero.nextFieldIs(way, map2, height, width, xFieldLength);
         hero.move(way, nextField, xFieldLength);
-
+        keyPressed(e);
         count++;
     }
 
@@ -146,7 +151,7 @@ public class Board extends JComponent implements KeyListener {
     public void keyPressed(KeyEvent e) {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).posX == hero.posX && enemies.get(i).posY == hero.posY) {
-                hero.strike(e, hero, enemies.get(i));
+                hero.strike(e, hero, enemies.get(i),0, enemies);
             }
         }
     }
