@@ -19,18 +19,21 @@ public class Board extends JComponent implements KeyListener {
     int count = 0;
 
 
-    Hero hero = new Hero("hero-down.png", posX, posY);
-    Hero heroUp = new Hero("hero-up.png", posX, posY);
-    Hero heroLeft = new Hero("hero-left.png", posX, posY);
-    Hero heroRight = new Hero("hero-right.png", posX, posY);
-    Hero heroDown = new Hero("hero-down.png", posX, posY);
+    Hero hero = new Hero("hero-down.png", posX, posY, 0, 0, 0, 0, 1);
 
-    Skeleton skeleton1 = new Skeleton("skeleton.png", posX, posY, hero, map2);
-    Skeleton skeleton2 = new Skeleton("skeleton.png", posX, posY, hero, map2);
-    Skeleton skeleton3 = new Skeleton("skeleton.png", posX, posY, hero, map2);
+
+    Hero heroUp = new Hero("hero-up.png", posX, posY, hero.maxHealthPoint, hero.currentHealthPoint, hero.defendPoint, hero.strikePoint, 0);
+    Hero heroLeft = new Hero("hero-left.png", posX, posY, hero.maxHealthPoint, hero.currentHealthPoint, hero.defendPoint, hero.strikePoint, 0);
+    Hero heroRight = new Hero("hero-right.png", posX, posY, hero.maxHealthPoint, hero.currentHealthPoint, hero.defendPoint, hero.strikePoint, 0);
+    Hero heroDown = new Hero("hero-down.png", posX, posY, hero.maxHealthPoint, hero.currentHealthPoint, hero.defendPoint, hero.strikePoint, 0);
+
+
+    Skeleton skeleton1 = new Skeleton("skeleton.png", posX, posY, hero, map2,0,0,0,0);
+    Skeleton skeleton2 = new Skeleton("skeleton.png", posX, posY, hero, map2,0,0,0,0);
+    Skeleton skeleton3 = new Skeleton("skeleton.png", posX, posY, hero, map2,0,0,0,0);
     ArrayList<Enemy> enemies = new ArrayList<>();
 
-    Boss boss = new Boss("boss.png", posX, posY, hero, map2);
+    Boss boss = new Boss("boss.png", posX, posY, hero, map2,0,0,0,0);
 
     public void getSkeletons(ArrayList enemies) {
         enemies.add(skeleton1);
@@ -40,11 +43,15 @@ public class Board extends JComponent implements KeyListener {
     }
 
 
+    public String  writeOutStats(Hero hero) {
+        return "Hero (Level " + hero.level + ") HP: " + hero.maxHealthPoint + "/" + hero.currentHealthPoint + " | " + "DP: " + hero.defendPoint + " | SP :" + hero.strikePoint;
+    }
+
     public Board() {
         testBoxX = 0;
         testBoxY = 0;
         // set the size of your draw board
-        setPreferredSize(new Dimension(width, height));
+        setPreferredSize(new Dimension(width, height+ 30));
         setVisible(true);
     }
 
@@ -90,6 +97,7 @@ public class Board extends JComponent implements KeyListener {
 
     public void moveHero(Hero newHero, String way) {
         hero.passOverCurrentPosition(newHero);
+        hero.passOverCurrentPoints(newHero);
         hero = newHero;
         int nextField = hero.nextFieldIs(way, map2, height, width, xFieldLength);
         hero.move(way, nextField, xFieldLength);
@@ -102,8 +110,8 @@ public class Board extends JComponent implements KeyListener {
         paintMap(graphics);
         hero.draw(graphics);
         paintEnemies(count, graphics);
-
-
+        String aD = writeOutStats(hero);
+        graphics.drawString(aD, 0,740);
     }
 
     private void paintMap(Graphics graphics) {

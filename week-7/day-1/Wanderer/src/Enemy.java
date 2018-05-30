@@ -3,8 +3,8 @@ import java.util.Random;
 
 public class Enemy extends Character {
 
-    public Enemy(String filename, int posX, int posY) {
-        super(filename, posX, posY);
+    public Enemy(String filename, int posX, int posY, int maxHealthPoint, int currentHealthPoint, int defendPoint, int strikePoint) {
+        super(filename, posX, posY, maxHealthPoint, currentHealthPoint, defendPoint, strikePoint);
     }
 
     public int coordinateX;
@@ -30,12 +30,6 @@ public class Enemy extends Character {
         return;
     }
 
-    //duplication.. not good
-    private int randomNumber(int min, int max) {
-        Random rand = new Random();
-        int number = rand.nextInt(max) + min;
-        return number;
-    }
 
 
     public String whereToMove(ArrayList map, int height, int width, int field) {

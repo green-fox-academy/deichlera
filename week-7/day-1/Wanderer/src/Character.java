@@ -3,18 +3,37 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class Character extends PositionedImage {
 
+    public int maxHealthPoint;
+    public int currentHealthPoint;
+    public int defendPoint;
+    public int strikePoint;
+
     List<String> ways = Arrays.asList("up", "down", "left", "right");
 
-    public Character(String filename, int posX, int posY) {
+    public Character(String filename, int posX, int posY, int maxHealthPoint, int currentHealthPoint, int defendPoint, int strikePoint) {
         super(filename, posX, posY);
     }
 
     public void passOverCurrentPosition(Character character) {
         character.posX = this.posX;
         character.posY = this.posY;
+    }
+
+    public void passOverCurrentPoints(Character character) {
+        character.maxHealthPoint = this.maxHealthPoint;
+        character.currentHealthPoint = this.currentHealthPoint;
+        character.defendPoint = this.defendPoint;
+        character.strikePoint = this.strikePoint;
+    }
+
+    public int randomNumber(int min, int max) {
+        Random rand = new Random();
+        int number = rand.nextInt(max) + min;
+        return number;
     }
 
 
