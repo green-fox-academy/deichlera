@@ -101,6 +101,11 @@ public class Board extends JComponent implements KeyListener {
         hero = newHero;
         int nextField = hero.nextFieldIs(way, map2, height, width, xFieldLength);
         hero.move(way, nextField, xFieldLength);
+        for (int i = 0; i < enemies.size(); i++) {
+            if (enemies.get(i).posX==hero.posX && enemies.get(i).posY==hero.posY){
+                battle();
+            }
+        }
         count++;
     }
 
