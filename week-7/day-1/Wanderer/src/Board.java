@@ -28,12 +28,12 @@ public class Board extends JComponent implements KeyListener {
     Hero heroDown = new Hero("hero-down.png", posX, posY, hero.maxHealthPoint, hero.currentHealthPoint, hero.defendPoint, hero.strikePoint, 0);
 
 
-    Skeleton skeleton1 = new Skeleton("skeleton.png", posX, posY, hero, map2,0,0,0,0);
-    Skeleton skeleton2 = new Skeleton("skeleton.png", posX, posY, hero, map2,0,0,0,0);
-    Skeleton skeleton3 = new Skeleton("skeleton.png", posX, posY, hero, map2,0,0,0,0);
+    Skeleton skeleton1 = new Skeleton("skeleton.png", posX, posY, hero, map2, 0, 0, 0, 0);
+    Skeleton skeleton2 = new Skeleton("skeleton.png", posX, posY, hero, map2, 0, 0, 0, 0);
+    Skeleton skeleton3 = new Skeleton("skeleton.png", posX, posY, hero, map2, 0, 0, 0, 0);
     ArrayList<Enemy> enemies = new ArrayList<>();
 
-    Boss boss = new Boss("boss.png", posX, posY, hero, map2,0,0,0,0);
+    Boss boss = new Boss("boss.png", posX, posY, hero, map2, 0, 0, 0, 0);
 
     public void getSkeletons(ArrayList enemies) {
         enemies.add(skeleton1);
@@ -43,7 +43,7 @@ public class Board extends JComponent implements KeyListener {
     }
 
 
-    public String  writeOutStats(Hero hero) {
+    public String writeOutStats(Hero hero) {
         return "Hero (Level " + hero.level + ") HP: " + hero.maxHealthPoint + "/" + hero.currentHealthPoint + " | " + "DP: " + hero.defendPoint + " | SP :" + hero.strikePoint;
     }
 
@@ -51,7 +51,7 @@ public class Board extends JComponent implements KeyListener {
         testBoxX = 0;
         testBoxY = 0;
         // set the size of your draw board
-        setPreferredSize(new Dimension(width, height+ 30));
+        setPreferredSize(new Dimension(width, height + 30));
         setVisible(true);
     }
 
@@ -95,19 +95,38 @@ public class Board extends JComponent implements KeyListener {
         }
     }
 
-    public void moveHero(Hero newHero, String way) {
+    public void moveHero(KeyEvent e, Hero newHero, String way) {
         hero.passOverCurrentPosition(newHero);
         hero.passOverCurrentPoints(newHero);
         hero = newHero;
         int nextField = hero.nextFieldIs(way, map2, height, width, xFieldLength);
         hero.move(way, nextField, xFieldLength);
         for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).posX==hero.posX && enemies.get(i).posY==hero.posY){
-                battle();
+            if (enemies.get(i).posX == hero.posX && enemies.get(i).posY == hero.posY) {
+                strike(e, hero, enemies.get(i));
             }
         }
         count++;
     }
+
+    public void strike(KeyEvent e, Character hero, Character enemy) {
+        int count = 0;
+        if (count % 2 == 0) {
+            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                int calculatedStrikePoint = 2 * randomNumber(1, 6) + hero.strikePoint;
+                enemy.currentHealthPoint -= calculatedStrikePoint;
+                count++;
+            }
+        } else if (count % 2 == 1) {
+            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                int calculatedStrikePoint = 2 * randomNumber(1, 6) + enemy.strikePoint;
+                hero.currentHealthPoint -= calculatedStrikePoint;
+                count++;
+            }
+        }
+    }
+
+
 
     @Override
     public void paint(Graphics graphics) {
@@ -116,7 +135,7 @@ public class Board extends JComponent implements KeyListener {
         hero.draw(graphics);
         paintEnemies(count, graphics);
         String aD = writeOutStats(hero);
-        graphics.drawString(aD, 0,740);
+        graphics.drawString(aD, 0, 740);
     }
 
     private void paintMap(Graphics graphics) {
@@ -155,16 +174,16 @@ public class Board extends JComponent implements KeyListener {
     public void keyReleased(KeyEvent e) {
         // When the up or down keys hit, we change the position of our box
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            moveHero(heroUp, "up");
+            moveHero(e, heroUp, "up");
             moveEnemies();
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            moveHero(heroDown, "down");
+            moveHero(e, heroDown, "down");
             moveEnemies();
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            moveHero(heroLeft, "left");
+            moveHero(e, heroLeft, "left");
             moveEnemies();
         } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            moveHero(heroRight, "right");
+            moveHero(e, heroRight, "right");
             moveEnemies();
         }
         repaint();

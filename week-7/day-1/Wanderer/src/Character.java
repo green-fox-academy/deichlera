@@ -100,18 +100,6 @@ public class Character extends PositionedImage {
         return nextFieldIs;
     }
 
-    public void strike(KeyEvent e, Character hero, Character enemy){
-        int count =0;
-        if (count%2==0) {
-            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                int calculatedStrikePoint=2 * randomNumber(1,6) + hero.strikePoint;
-                enemy.currentHealthPoint-=calculatedStrikePoint;
-                count++;
-            } else if(count%2==1){
-                int calculatedStrikePoint=2 * randomNumber(1,6) + enemy.strikePoint;
-                hero.currentHealthPoint-=currentHealthPoint;
-            }
-        }
-    }
+
 
 }
