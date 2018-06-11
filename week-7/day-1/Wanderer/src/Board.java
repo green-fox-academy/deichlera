@@ -31,24 +31,28 @@ public class Board extends JComponent implements KeyListener {
     Skeleton skeleton1 = new Skeleton("skeleton.png", posX, posY, hero, map2, 0, 0, 0, 0);
     Skeleton skeleton2 = new Skeleton("skeleton.png", posX, posY, hero, map2, 0, 0, 0, 0);
     Skeleton skeleton3 = new Skeleton("skeleton.png", posX, posY, hero, map2, 0, 0, 0, 0);
+    Skeleton skeleton4 = new Skeleton("skeleton.png", posX, posY, hero, map2, 0, 0, 0, 0);
     ArrayList<Enemy> enemies = new ArrayList<>();
 
     Boss boss = new Boss("boss.png", posX, posY, hero, map2, 0, 0, 0, 0);
 
     public void getSkeletons(ArrayList enemies) {
-        enemies.add(skeleton1);
-        enemies.add(skeleton2);
-        enemies.add(skeleton3);
-        enemies.add(boss);
+        for (int i = 0; i < 2; i++) {
+            enemies.add(skeleton1);
+            i++;
+            enemies.add(skeleton2);
+            i++;
+            enemies.add(skeleton3);
+            i++;
+            enemies.add(skeleton4);
+            i++;
+        }
+            enemies.add(boss);
     }
 
 
     public String writeOutStats(Hero hero) {
         return "Hero (Level " + hero.level + ") HP: " + hero.maxHealthPoint + "/" + hero.currentHealthPoint + " | " + "DP: " + hero.defendPoint + " | SP :" + hero.strikePoint;
-    }
-
-    public String writeOutStatsForCharacter(Enemy enemy) {
-        return "Characters HP: " + enemy.maxHealthPoint + "/" + enemy.currentHealthPoint + " | " + "DP: " + enemy.defendPoint + " | SP :" + enemy.strikePoint;
     }
 
 

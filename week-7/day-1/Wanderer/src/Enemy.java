@@ -25,7 +25,6 @@ public class Enemy extends Character {
         } else {
             posX = coordinateX;
             posY = coordinateY;
-            System.out.println(choosenFieldIs);
         }
         return;
     }
