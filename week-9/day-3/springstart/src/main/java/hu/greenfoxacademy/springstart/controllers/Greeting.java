@@ -5,6 +5,7 @@ public class Greeting {
     long id;
     String content;
 
+
     public long getId() {
         return id;
     }
@@ -16,5 +17,7 @@ public class Greeting {
     public Greeting(long id, String content) {
         this.id = id;
         this.content = content;
+        this.getId();
+        this.getContent();
     }
 }

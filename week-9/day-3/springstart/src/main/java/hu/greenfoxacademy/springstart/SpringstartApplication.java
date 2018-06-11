@@ -1,14 +1,11 @@
 package hu.greenfoxacademy.springstart;
 
+import hu.greenfoxacademy.springstart.controllers.Greeting;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @SpringBootApplication
 public class SpringstartApplication {
@@ -27,6 +24,12 @@ public class SpringstartApplication {
         @RequestMapping("/hello")
         public String hello(){
             return "Hello world!";
+        }
+
+        @RequestMapping("/greeting")
+        public Greeting greeting(){
+            Greeting greeting=new Greeting(1, "Hello world!");
+            return greeting;
         }
 
 
