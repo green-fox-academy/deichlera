@@ -11,18 +11,5 @@ import java.util.Arrays;
 public class Controller {
 
 
-    @RequestMapping("/cicák")
-    public ArrayList<String> getCicaNames(){
-        return new ArrayList<>(
-                Arrays.asList(
-                        "Cirmi",
-                        "Dormi",
-                        "Bundas",
-                        "Garfield",
-                        "Cirmogó"
-                )
-        );
-    }
-
 
 }
