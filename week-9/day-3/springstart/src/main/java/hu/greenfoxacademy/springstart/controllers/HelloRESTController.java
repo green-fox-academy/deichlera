@@ -10,12 +10,12 @@ import java.util.Arrays;
 
 @RestController
 public class HelloRESTController {
-    
+
 
     @RequestMapping(value="/greeting", method = RequestMethod.GET)
     public Greeting greetingYou(
             @RequestParam(value = "name", required = false) String value) {
-        Greeting greetingYou=new Greeting(1, "Hello "+ value + "!");
+        Greeting greetingYou=new Greeting("Hello "+ value + "!");
         return greetingYou;
 
     }
