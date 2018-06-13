@@ -1,9 +1,14 @@
-package com.greenfoxacademy.greetings.controllers;
+package greenfoxacademy.greetings;
 
 public class Greeting {
 
     long id;
     String content;
+
+    public Greeting(long id, String content) {
+        this.id = id;
+        this.content = content;
+    }
 
     public long getId() {
         return id;
@@ -12,12 +17,4 @@ public class Greeting {
     public String getContent() {
         return content;
     }
-
-    public Greeting(long id, String content) {
-        this.id = id;
-        this.content = content;
-    }
-
-
-
 }
