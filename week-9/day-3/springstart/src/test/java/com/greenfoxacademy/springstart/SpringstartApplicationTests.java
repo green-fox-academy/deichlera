@@ -1,4 +1,4 @@
-package hu.greenfoxacademy.springstart;
+package com.greenfoxacademy.springstart;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
