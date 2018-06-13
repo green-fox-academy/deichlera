@@ -12,20 +12,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SpringstartApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringstartApplication.class, args);}
-
-
-
-    @RequestMapping(value="/hello")
-    @ResponseBody
-          public String hello(){
-              return "Hello world!";
-        }
-
-
-
-
-
+        SpringApplication.run(SpringstartApplication.class, args);
     }
+
+
+    @RequestMapping(value = "/hello")
+    @ResponseBody
+    public String hello() {
+        return "Hello world!";
+    }
+
+
+}
 
 
